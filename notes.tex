@@ -1,0 +1,145 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{listings} % Include the listings-package
+\usepackage{xcolor} % Required for custom colors
+\usepackage{fullpage}
+\usepackage{enumitem}
+\usepackage{upquote} % for straight quotes in texttt
+\usepackage{siunitx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning}
+
+
+% If dealing with URLs or file paths:
+\usepackage{url} % Allows for line breaks in URLs
+% \def\UrlBreaks{\do\/\do-} % Allows breaks at "/" and "-"
+
+\usepackage[style=authoryear-comp,  % numeric, alphabetic, authoryear, etc.
+    sorting=nty,
+    abbreviate=true,
+    backend=biber,
+    maxcitenames=2,
+    mincitenames=1,
+    uniquelist=false]{biblatex}
+\addbibresource{biblatex.bib}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\usetikzlibrary{intersections}
+\usepgfplotslibrary{fillbetween}
+\usepackage{subcaption}
+
+\renewbibmacro*{name:andothers}{% Based on biblatex.def
+  \ifboolexpr{
+    test {\ifnumequal{\value{listcount}}{\value{liststop}}}
+    and
+    test \ifmorenames
+  }
+    {\ifnumgreater{\value{liststop}}{1}
+       {\finalandcomma}
+       {}%
+     \textnormal{\textnormal{ et al.,}}} % Here we ensure "et al." is not bold
+    {}}
+\renewcommand*{\finalnamedelim}{\addspace\textnormal{and}\addspace}
+
+
+
+
+% To add Python code
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,breakable,xparse,skins}
+\usepackage{caption} % Add this line
+\definecolor{bg}{gray}{0.95}
+% Modified mintedbox
+\DeclareTCBListing{mintedbox}{O{}m!O{}}{
+  breakable=false, % Set to false to prevent page breaks
+  listing engine=minted,
+  listing only,
+  minted language=#2,
+  minted style=default,
+  minted options={
+    %linenos, % This option enables line numbers
+    gobble=0,
+    breaklines=true,
+    breakafter=,
+    fontsize=\small,
+    numbersep=8pt,
+    #1},
+  boxsep=0pt,
+  left skip=0pt,
+  right skip=0pt,
+  left=25pt,
+  right=0pt,
+  top=3pt,
+  bottom=3pt,
+  arc=5pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  bottomrule=2pt,
+  toprule=2pt,
+  colback=bg,
+  colframe=orange!70,
+  enhanced,
+  overlay={
+    \begin{tcbclipinterior}
+    \fill[orange!20!white] (frame.south west) rectangle ([xshift=20pt]frame.north west);
+    \end{tcbclipinterior}},
+}
+
+
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=cyan,     % Color for internal links
+    citecolor=cyan,     % Color for citations
+    filecolor=cyan,     % Color for file links
+    urlcolor=cyan       % Color for URLs
+    % pdfborder={0 0 0},
+}
+
+% Define the amber color
+\definecolor{amber}{HTML}{FFBF00}% Define the specific light shade of color
+\definecolor{light083676}{HTML}{083676}
+\definecolor{action}{HTML}{7A001E}
+
+% Define a new command for small caps text with the defined color
+\newcommand{\textq}[1]{{\color{light083676}\textsc{#1}}}
+\newcommand{\key}[1]{\fbox{#1}} % Create a new command to format keys as buttons
+\let\oldtexttt\texttt
+\renewcommand{\texttt}[1]{\textcolor{magenta}{\oldtexttt{#1}}}
+% Define text for warning (where something might cause the research to fail)
+\newcommand{\textw}[1]{{\color{amber!70}#1}}
+\newcommand{\texta}[1]{{\color{action}#1}}
+
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+\makeatletter
+\newcommand\footnoteref[1]{\protected@xdef\@thefnmark{\ref{#1}}\@footnotemark}
+\makeatother
+
+\lstset{
+    basicstyle=\ttfamily,
+    commentstyle=\color{gray},
+    keywordstyle=\color{blue},
+    breaklines=true,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    frame=single,
+    language=Python,
+    showstringspaces=false,
+}
+
+\title{The Physics of Two-Level Systems}
+\author{Noor Almusleh}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+\end{document}
