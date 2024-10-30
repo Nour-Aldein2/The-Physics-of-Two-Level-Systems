@@ -9,6 +9,7 @@
 \usepackage{siunitx}
 \usepackage{hyperref}
 \usepackage{amsmath}
+\usepackage{amssymb}
 
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows.meta, positioning}
@@ -44,6 +45,16 @@
      \textnormal{\textnormal{ et al.,}}} % Here we ensure "et al." is not bold
     {}}
 \renewcommand*{\finalnamedelim}{\addspace\textnormal{and}\addspace}
+
+% Define new commands for \left( and \right)
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\l}{\originalleft}
+\renewcommand{\r}{\originalright}
+
+% To make vectors
+\renewcommand{\v}[1]{\vec{#1}}
+
 
 
 
@@ -132,7 +143,7 @@
     showstringspaces=false,
 }
 
-\title{The Physics of Two-Level Systems}
+\title{Spin Precession and Rate Equations}
 \author{Noor Almusleh}
 \date{\today}
 
@@ -140,6 +151,63 @@
 
 \maketitle
 
-\section{Introduction}
+
+\textbf{Spin precession} is related to the time evolution of two spin components, where each has a different time-dependent phase term, i.e., measuring a spin component change with time. This can be described, like any other transition in a physical system, by the \textbf{rate equation}. Spin plays an important role in the study of particles and in quantum information. For example, we can measure a quantum system by interacting it with a light beam. Light itself is comprised of electric and magnetic fields that are perpendicular to each other. These two fields can be described by the following two equations:
+\begin{align}
+    \label{eq:E}
+    \Vec{E} (\Vec{r}, t) &= E_0(\omega) \Vec{\varepsilon}\sin(\Vec{k}\cdot\Vec{r} - \omega t + \alpha) \\
+    \label{eq:B}
+    \Vec{B} (\Vec{r}, t) &= E_0(\omega) \frac{1}{\omega} (\Vec{k} \times \Vec{\varepsilon}) \sin(\Vec{k}\cdot\Vec{r} - \omega t + \alpha)
+\end{align}
+
+where $\Vec{E}$, and $\Vec{B}$ are the electric and magnetic fields respectively, $\Vec{k}$ is the wavenumber, and $\Vec{\varepsilon}$ is the polarization vector, which has a \textw{direction that is perpendicular to the electric and magnetic fields, i.e. is in the propagation direction}. The superposition of frequency can be used to give \textw{an indication of the polarization.} Additionally, the speed of light in vacuum can be given in terms of the dielectric permittivity in free space, and magnetic permeability in free space, that is
+\begin{equation}
+    c^2 = \frac{1}{\epsilon_0 \mu_0}
+\end{equation}
+
+The energy density of an electromagnetic wave is given by 
+\begin{equation}
+    \label{eq:energy_density_em}
+    U(\omega) = \frac{1}{2} \l( \epsilon_0 |\Vec{E}|^2 + \frac{1}{\mu_0} |\Vec{B}|^2 \r)
+\end{equation}
+therefore, we can substitute eqs. \ref{eq:E} and \ref{eq:B} as follows (n.b. $\eta=\Vec{k}\cdot\Vec{r} - \omega t + \alpha$):
+\begin{align*}
+    U(\omega) &= \frac{1}{2} \l( \epsilon_0 \l| E_0(\omega) \Vec{\varepsilon}\sin(\eta) \r|^2  + \frac{1}{\mu_0} \l| E_0(\omega) \frac{1}{\omega} (\v{k} \times \v{\varepsilon}) \sin(\eta) \r|^2\r) \\ 
+    &= \frac{1}{2} \l( \epsilon_0 E_0^2|\varepsilon|^2 \sin^2(\eta) + \frac{1}{\mu_0\omega^2}E_0^2 |(\v{k} \times \v{\varepsilon})|^2 \sin^2(\eta)  \r) \\
+    &= \frac{1}{2} \l(  \epsilon_0 E_0^2|\varepsilon|^2 \sin^2(\eta) + \frac{1}{\mu_0\omega^2}E_0^2 \l| |\v{k}||\hat{\varepsilon}| \sin \frac{\pi}{2} \r|^2 \sin^2(\eta)  \r) \\
+    &= \frac{1}{2} \l(  \epsilon_0 E_0^2|\varepsilon|^2 \sin^2(\eta) + \frac{1}{\mu_0\omega^2}E_0^2 \l| \v{k} \r|^2 \sin^2(\eta)  \r) \\
+    &= \frac{1}{2} \l(  \epsilon_0 E_0^2|\varepsilon|^2 \sin^2(\eta) + \frac{1}{\mu_0\omega^2}E_0^2 \l| \frac{2\pi}{\lambda} \r|^2 \sin^2(\eta)  \r) \\
+    &= \frac{1}{2} \l(  \epsilon_0 E_0^2|\varepsilon|^2 \sin^2(\eta) + \frac{\epsilon_0}{
+c^2\omega^2}E_0^2 \l| \frac{2\pi \nu}{c} \r|^2 \sin^2(\eta)  \r) \\
+    &= \frac{1}{2} \l(  \epsilon_0 E_0^2|\varepsilon|^2 \sin^2(\eta) + \epsilon_0E_0^2 \sin^2(\eta)  \r) \\
+    &=  \epsilon_0 |E_0|^2|\varepsilon|^2 \sin^2(\eta)  \\
+    \blacksquare
+\end{align*}
+
+It is also worth mentioning that $E_0$ could depend on $\omega_0$ \textq{what does that mean?} If we average the energy density over a period of time. This will be essential when looking for a linking the particle-picture and the wave-picture. The \textbf{time-averaged energy density} is given by:
+\begin{equation}
+    \label{eq:time_averaged_energy_density}
+    \rho (\omega) = \frac{1}{T} \int_0^T dt U(\omega) = \frac{1}{2}\epsilon_0 |E_0(\omega)|^2
+\end{equation}
+
+Given that the number of photons, with angular frequency $\omega$, within a volume $V$ is $N(\omega)$, and and their time-averaged energy density $\rho(\omega) = \hbar \omega N(\omega) / V$, using eq. \ref{eq:time_averaged_energy_density} we can deduce a relationship between the electric field and the number of photons, that is,
+\begin{equation*}
+    \frac{\hbar \omega N(\omega)}{V}    =   \frac{1}{2}\epsilon_0 |E_0(\omega)|^2
+\end{equation*}
+\begin{equation}
+    \label{eq:enectric_field_num_photons}
+    E_0(\omega) = \sqrt{2 \frac{\hbar \omega}{\epsilon_0}\frac{N(\omega)}{V}}
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
 
 \end{document}
